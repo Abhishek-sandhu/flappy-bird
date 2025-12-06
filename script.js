@@ -9,22 +9,22 @@ let startScreen = document.getElementById('start-screen');
 let gameOverScreen = document.getElementById('game-over-screen');
 let finalScoreDisplay = document.getElementById('final-score');
 let highScoreDisplay = document.getElementById('high-score');
-let bgMusic = document.getElementById('bg-music');
 
 let gameWidth = window.innerWidth;
 let gameHeight = window.innerHeight;
 let birdY = gameHeight / 2;
+bird.style.top = birdY + 'px';
 let birdVelocity = 0;
-let gravity = 0.6;
-let jumpStrength = -12;
+let gravity = 0.5;
+let jumpStrength = -10;
 let score = 0;
 let highScore = localStorage.getItem('flappyBirdHighScore') || 0;
 let gameRunning = false;
 let pipes = [];
-let pipeSpeed = 2;
-let pipeGap = 150;
+let pipeSpeed = 1.5;
+let pipeGap = 180;
 let pipeWidth = 60;
-let pipeSpawnRate = 120; // frames
+let pipeSpawnRate = 150; // frames
 let frameCount = 0;
 
 // Audio context for sounds
@@ -42,22 +42,6 @@ function playSound(frequency, duration, type = 'sine', volume = 0.3) {
     gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
     oscillator.start(audioContext.currentTime);
     oscillator.stop(audioContext.currentTime + duration);
-}
-
-// Function to fade out background music
-function fadeOutMusic(duration = 2000) {
-    if (!bgMusic) return;
-    let startVolume = bgMusic.volume;
-    let fadeStep = startVolume / (duration / 100);
-    let fadeInterval = setInterval(() => {
-        if (bgMusic.volume > 0.01) {
-            bgMusic.volume -= fadeStep;
-        } else {
-            bgMusic.pause();
-            bgMusic.volume = startVolume; // Reset for next play
-            clearInterval(fadeInterval);
-        }
-    }, 100);
 }
 
 // Start game
@@ -88,7 +72,7 @@ function jump() {
 }
 
 function createParticles(y) {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
         let particle = document.createElement('div');
         particle.className = 'particle';
         particle.style.left = (50 + Math.random() * 20) + 'px';
@@ -109,11 +93,6 @@ function startGame() {
     pipesContainer.innerHTML = '';
     pipeSpeed = 2;
     frameCount = 0;
-    try {
-        bgMusic.play();
-    } catch (e) {
-        console.log('Music not available');
-    }
     gameLoop();
 }
 
@@ -170,6 +149,7 @@ function gameLoop() {
             // Increase difficulty
             if (score % 10 === 0) {
                 pipeSpeed += 0.2;
+                pipeSpawnRate = Math.max(60, pipeSpawnRate - 5);
             }
         }
 

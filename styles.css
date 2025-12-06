@@ -157,19 +157,18 @@ body {
     background-size: cover;
     left: 50px;
     top: 50%;
-    transform: translateY(-50%);
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    animation: flap 0.3s infinite alternate, rotateBird 0.5s ease-out;
+    animation: rotateBird 0.5s ease-out;
 }
 
 @keyframes flap {
-    0% { transform: translateY(-50%) scaleY(1); }
-    100% { transform: translateY(-50%) scaleY(0.9); }
+    0% { transform: scaleY(1); }
+    100% { transform: scaleY(0.9); }
 }
 
 @keyframes rotateBird {
-    0% { transform: translateY(-50%) rotate(0deg); }
-    100% { transform: translateY(-50%) rotate(-10deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-10deg); }
 }
 
 #bird.falling {
@@ -181,9 +180,9 @@ body {
 }
 
 @keyframes bounce {
-    0% { transform: translateY(-50%) scale(1); }
-    50% { transform: translateY(-50%) scale(1.1); }
-    100% { transform: translateY(-50%) scale(1); }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 #bird-shadow {
