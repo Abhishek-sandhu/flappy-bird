@@ -61,7 +61,7 @@ function fadeOutMusic(duration = 2000) {
 }
 
 // Start game
-startScreen.addEventListener('click', startGame);
+document.getElementById('start-btn').addEventListener('click', startGame);
 document.getElementById('restart-btn').addEventListener('click', restartGame);
 
 // Controls
@@ -81,6 +81,8 @@ function jump() {
     if (!gameRunning) return;
     birdVelocity = jumpStrength;
     bird.classList.remove('falling');
+    bird.classList.add('bounce');
+    setTimeout(() => bird.classList.remove('bounce'), 300);
     playSound(400, 0.1); // Jump sound
     createParticles(birdY);
 }
@@ -161,6 +163,8 @@ function gameLoop() {
             pipe.passed = true;
             score++;
             scoreDisplay.textContent = score;
+            scoreDisplay.classList.add('score-pop');
+            setTimeout(() => scoreDisplay.classList.remove('score-pop'), 300);
             playSound(600, 0.1); // Point sound
 
             // Increase difficulty
@@ -224,7 +228,7 @@ function gameOver() {
 
     finalScoreDisplay.textContent = score;
     highScoreDisplay.textContent = highScore;
-    fadeOutMusic();
+    // Music continues playing
     gameOverScreen.style.display = 'flex';
 }
 
