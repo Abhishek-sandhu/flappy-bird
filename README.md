@@ -2,9 +2,6 @@
 
 A modern, enhanced version of the classic **Flappy Bird** game, built with vanilla **HTML**, **CSS**, and **JavaScript**.
 
-![Flappy Bird Screenshot](https://via.placeholder.com/1000x500)  
-*(Add a beautiful screenshot from your game here!)*
-
 ---
 
 ## 🚀 Features
